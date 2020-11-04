@@ -6,6 +6,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public interface DanceClassRepository extends JpaRepository<DanceClass,Long> {
+  List<DanceClass> findAllByStartTimeBetween(LocalDateTime startTime,LocalDateTime endTime);
 
-  List<DanceClass> findByClassRoomAndStartTimeAndEndTime(String classRoom, LocalDateTime startTime, LocalDateTime endTime);
 }

@@ -6,29 +6,30 @@ import hello.hellospring.service.AuthService;
 import hello.hellospring.model.Response;
 import hello.hellospring.util.JwtTokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 
+@CrossOrigin(origins = "*",allowedHeaders = "*")
 @RestController
+@RequestMapping("/api")
 public class OhDanceMemeberController {
 
   private AuthService authService;
 
   @Autowired
-  private PasswordEncoder passwordEncoder;
-  @Autowired
-  private AuthenticationManager authenticationManager;
-  @Autowired
-  private OhMemberRepository ohMemberRepository;
-  @Autowired
   private JwtTokenProvider jwtTokenProvider;
+
   @Autowired
   public OhDanceMemeberController(AuthService authService) {
     this.authService = authService;
+  }
+
+  @PostMapping("/ip")
+  public ResponseEntity<String> ip (HttpServletRequest request) {
+    // 요청을 보낸 클라이언트의 IP주소를 반환합니다.
+    return ResponseEntity.ok(request.getRemoteAddr());
   }
 
   @PostMapping("/signup")

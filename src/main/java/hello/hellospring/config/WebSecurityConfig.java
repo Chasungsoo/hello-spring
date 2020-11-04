@@ -12,10 +12,12 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @RequiredArgsConstructor
 @EnableWebSecurity
-public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+public class WebSecurityConfig extends WebSecurityConfigurerAdapter implements WebMvcConfigurer {
 
   private final JwtTokenProvider jwtTokenProvider;
   @Override
@@ -28,11 +30,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         .authorizeRequests() // 요청에 대한 사용권한 체크
         .antMatchers("/admin/**").hasRole("ADMIN")
         .antMatchers("/user/**").hasRole("USER")
-        .anyRequest().permitAll() // 그외 나머지 요청은 누구나 접근 가능
+        .anyRequest().permitAll()
         .and()
         .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider),
             UsernamePasswordAuthenticationFilter.class);
-    // JwtAuthenticationFilter를 UsernamePasswordAuthenticationFilter 전에 넣는다
+  }
+
+  @Override
+  public void addCorsMappings(CorsRegistry registry) {
+    registry.addMapping("/api/**").allowCredentials(true);
   }
 
   @Bean

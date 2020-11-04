@@ -21,10 +21,6 @@ public class DanceClass {
   @DateTimeFormat(pattern = "yyyyMMddHHmmss")
   private LocalDateTime startTime;
 
-  @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "name")
-  private OhMember ohMember;
-
   @DateTimeFormat(pattern = "yyyyMMddHHmmss")
   private LocalDateTime endTime;
 

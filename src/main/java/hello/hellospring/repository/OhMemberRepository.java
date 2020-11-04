@@ -7,5 +7,4 @@ import java.util.Optional;
 
 public interface OhMemberRepository extends JpaRepository<OhMember,Long> {
   Optional<OhMember> findByUsername(String username);
-  OhMember findByname(String username);
 }

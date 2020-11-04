@@ -28,22 +28,12 @@ public class OhMember implements UserDetails, Serializable {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "member_id")
   private Long Id;
-  @NotBlank
   private String username;
-  @NotBlank
   private String password;
-  @NotBlank
   private String name;
-  @NotBlank
   private String email;
-  @NotBlank
   private String telNo;
-  @NotBlank
   private String address;
-
-  @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "teaName")
-  private DanceClass danceClass;
 
   @Enumerated(EnumType.STRING)
   private UserRole userRole = UserRole.미승인;
